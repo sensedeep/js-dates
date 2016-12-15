@@ -31,13 +31,15 @@ var formats = {
      syslog:         "UTC:mmm d HH:MM:ss"
 }
 
-var i18n = {
+var names = {
     dayNames: [
         "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat",
         "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"
     ],
-    monthNames: [
+    shortMonthNames: [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec",
+    ],
+    monthNames: [
         "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
     ]
 }
@@ -65,7 +67,9 @@ export class Dates {
             fmt = fmt.slice(4)
             utc = true
         }
-
+        if (utc == undefined) {
+            utc = false
+        }
         var _ = utc ? "getUTC" : "get",
             d = date[_ + "Date"](),
             D = date[_ + "Day"](),
@@ -79,12 +83,12 @@ export class Dates {
             flags = {
                 d:    d,
                 dd:   pad(d),
-                ddd:  i18n.dayNames[D],
-                dddd: i18n.dayNames[D + 7],
+                ddd:  names.dayNames[D],
+                dddd: names.dayNames[D + 7],
                 m:    m + 1,
                 mm:   pad(m + 1),
-                mmm:  i18n.monthNames[m],
-                mmmm: i18n.monthNames[m + 12],
+                mmm:  names.shortMonthNames[m],
+                mmmm: names.monthNames[m],
                 yy:   String(y).slice(2),
                 yyyy: y,
                 h:    H % 12 || 12,
@@ -110,3 +114,6 @@ export class Dates {
         })
     }
 }
+
+Dates.names = names
+Dates.formats = formats

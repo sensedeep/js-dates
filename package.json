@@ -1,7 +1,7 @@
 {
     "name": "js-dates",
     "description": "Node date formatting",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "keywords": [
         "node",
         "dates"
