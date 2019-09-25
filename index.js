@@ -49,17 +49,19 @@ Date.prototype.format = function (fmt, when) {
     return d.format(this, fmt, when)
 }
 
-export class Dates {
+export default class Dates {
     static format(date, fmt, utc) {
+        let original = date
         // You can't provide utc if you skip other args (use the "UTC:" fmt prefix)
         if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
             fmt = date
             date = undefined
         }
-        // Passing date through Date applies Date.parse, if necessary
         date = date ? new Date(date) : new Date
-        if (isNaN(date)) throw SyntaxError("invalid date")
-
+        if (isNaN(date)) {
+            //throw SyntaxError("invalid date")
+            return original
+        }
         fmt = String(formats[fmt] || fmt || formats["default"])
 
         // Allow setting the utc argument via the fmt
