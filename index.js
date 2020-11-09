@@ -51,6 +51,7 @@ Date.prototype.format = function (fmt, when) {
 
 export default class Dates {
     static format(date, fmt, utc) {
+        date = date || new Date()
         let original = date
         // You can't provide utc if you skip other args (use the "UTC:" fmt prefix)
         if (arguments.length == 1 && Object.prototype.toString.call(date) == "[object String]" && !/\d/.test(date)) {
